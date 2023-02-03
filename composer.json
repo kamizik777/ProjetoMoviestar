@@ -1,0 +1,13 @@
+{
+	"name" : "ti/caixa",
+	"autoload" : {
+		"psr-4" : {
+			"App\\" : "App"
+		}
+	},
+	"authors" : [{
+			"name" : "Matheus",
+			"email" : "matheusmendesr7@gmail.com"
+		}
+	]
+}
