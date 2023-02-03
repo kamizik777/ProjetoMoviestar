@@ -8,6 +8,7 @@ error_reporting(E_ALL & ~ E_NOTICE);
 ?>
     <div id="main-container" class="container-fluid">
         <h1>Corpo do site</h1>
+        <h1>Página Principal</h1>
     </div>
 
 <?php
