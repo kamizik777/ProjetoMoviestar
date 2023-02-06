@@ -95,7 +95,13 @@ class UsersDAO extends BaseDAO implements UsersDAOInterface
     }
 
     public function changePassword(Users $users)
-    {}
+    {
+        $sql = "update " . self::USERS . " set password = ? where id = ?";
+        $stmt = $this->getConexao()->prepare($sql);
+        $stmt->bindParam(1, $users->getPassword());
+        $stmt->bindParam(2, $users->getId());
+        $stmt->execute();
+    }
     
     public function imageGenerateName(){
         return bin2hex(random_bytes(60)) . ".jpg";

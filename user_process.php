@@ -56,7 +56,7 @@ if ($type === "update") {
             } else {
                 $imageFile = imagecreatefrompng($image["tmp_name"]);
             }
-
+ 
             $imageName = $userDao->imageGenerateName();
 
             imagejpeg($imageFile, "./img/users/" . $imageName, 100);
@@ -70,7 +70,28 @@ if ($type === "update") {
     $userDao->gravar($userData, $redirect = true);
 
     // Atualizar senha do usuário
-} else if ($type === "changepassword") {} else {
+} else if ($type === "changepassword") {
+    
+    //Resgata dados do usuário
+    $userData = $userDao->verifyToken();
+    
+    // Receber dados do post
+    $password = filter_input(INPUT_POST, "password");
+    $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
+    $id = filter_input(INPUT_POST, "id");
+    
+    //Atualizar senha
+    if($password == $confirmpassword ){
+        $finalPassword = password_hash($password, PASSWORD_DEFAULT);
+        $userData->setPassword($finalPassword);
+        $userDao->changePassword($userData);
+        
+    } else{
+        $msg->setMessage("As senhas não coincidem.", "error", "back");
+    }
+    
+    
+} else {
     $msg->setMessage("Informações inválidas!", "error", "index.php");
 }
 
