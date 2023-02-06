@@ -75,7 +75,7 @@ class UsersDAO extends BaseDAO implements UsersDAOInterface
             } else {
                 return false;
             }
-        }
+        } 
     }
 
     public function setTokenToSession($token, $id, $redirect = true)
@@ -96,6 +96,10 @@ class UsersDAO extends BaseDAO implements UsersDAOInterface
 
     public function changePassword(Users $users)
     {}
+    
+    public function imageGenerateName(){
+        return bin2hex(random_bytes(60)) . ".jpg";
+    }
 
     public function destroyToken()
     {
@@ -130,7 +134,7 @@ class UsersDAO extends BaseDAO implements UsersDAOInterface
 
     private function atualizar(Users $users, $redirect = true)
     {
-        $sql = "update " . self::USERS . " set name = ?, lastname = ?, email = ?, password = ?, image = ?,  bio = ?, token = ?";
+        $sql = "update " . self::USERS . " set name = ?, lastname = ?, email = ?, password = ?, image = ?,  bio = ? where token = ?";
         $stmt = $this->getConexao()->prepare($sql);
         $stmt->bindParam(1, $users->getName());
         $stmt->bindParam(2, $users->getLastName());
